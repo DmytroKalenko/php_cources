@@ -64,8 +64,26 @@ echo $object2->salary;
 $object2->doubleSalary();
 echo $object2->salary;
 
-//task12
+//task12,13,14
 class Rectangle{
+    public float $firstSide;
+    public float $secondSide;
     public float $width;
     public float $height;
+    public function getSquare():float{
+        return $this->width * $this->height;
+    }
+    public function  getPerimeter():float{
+        return 2 * ($this->firstSide + $this->secondSide);
+    }
 }
+
+echo '<br>';
+$figure = new Rectangle();
+$figure->firstSide = 3;
+$figure->secondSide = 5;
+$figure->height = 2;
+$figure->width = 5.4;
+echo $figure->getPerimeter() .' Perimeter';
+echo '<br>';
+echo $figure->getSquare() .' Square';
