@@ -10,9 +10,9 @@ class Employee{
         return $this->age;
     }
 
-    public function getSalary(): float|int
+    public function getSalary(): float|int|string
     {
-        return $this->salary;
+        return $this->salary.' $';
     }
 
     public function getName(): string
@@ -34,7 +34,7 @@ class Employee{
 
     public function setSalary(float|int $salary): void
     {
-        $this->salary = $salary.' $';
+        $this->salary = $salary;
     }
 
     private function isAgeCorrect(int $age): bool{
