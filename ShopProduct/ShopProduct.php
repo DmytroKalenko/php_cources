@@ -1,6 +1,9 @@
 <?php
 
+namespace ShopProduct;
 use ShopProduct\Info\BaseInfo;
+
+
 
 abstract class ShopProduct
 {
@@ -68,3 +71,4 @@ abstract class ShopProduct
         return $this->price;
     }
 }
+
