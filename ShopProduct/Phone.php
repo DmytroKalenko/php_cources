@@ -8,7 +8,7 @@ class Phone extends ShopProduct
     private const PHONE = 'Телефон';
 
     /** @var string */
-    private $memory;
+    public $memory;
 
     /**
      * @param string $title

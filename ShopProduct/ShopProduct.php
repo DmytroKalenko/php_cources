@@ -19,6 +19,12 @@ abstract class ShopProduct
     /** @var int */
     private $price;
 
+    /** @var int */
+    public $pagesCount;
+
+    /** @var int */
+    public $memory;
+
     /**
      * @param string $title
      * @param string $producer
@@ -70,5 +76,22 @@ abstract class ShopProduct
     {
         return $this->price;
     }
+
+    /**
+     * @return int
+     */
+    public function getPagesCount(): int
+    {
+        return $this->pagesCount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemory(): string
+    {
+        return $this->memory;
+    }
+
 }
 

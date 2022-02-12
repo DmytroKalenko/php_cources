@@ -8,7 +8,7 @@ class Book extends ShopProduct
     private const BOOK = 'Книга';
 
     /** @var int */
-    private $pagesCount;
+    public $pagesCount;
 
     /**
      * @param string $title
