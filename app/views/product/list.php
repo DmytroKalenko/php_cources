@@ -64,12 +64,93 @@
     <input type="submit" value="Submit">
 </form>
 
+
+<?php
+
+function sortProductsPriceMore(array &$array){
+    $temp = null;
+    $n = count($array);
+    for($i=0; $i<$n; $i++) {
+        for($j=0; $j<$n-$i-1; $j++) {
+            if($array[$j]['price']<$array[$j+1]['price']) {
+                $temp = $array[$j];
+                $array[$j] = $array[$j+1];
+                $array[$j+1] = $temp;
+            }
+        }
+    }
+}
+function sortProductsPriceLess(array &$array){
+    $temp = null;
+    for($i=0; $i<count($array); $i++) {
+        for($j=0; $j<count($array)-$i-1; $j++) {
+            if($array[$j]['price']>$array[$j+1]['price']) {
+                $temp = $array[$j];
+                $array[$j] = $array[$j+1];
+                $array[$j+1] = $temp;
+            }
+        }
+    }
+
+}
+
+function sortProductsQuantityMore(array &$array){
+    $temp = null;
+    for($i=0; $i<count($array); $i++) {
+        for($j=0; $j<count($array)-$i-1; $j++) {
+            if($array[$j]['price']==$array[$j+1]['price']){
+                if($array[$j]['qty']<$array[$j+1]['qty']) {
+                    $temp = $array[$j];
+                    $array[$j] = $array[$j+1];
+                    $array[$j+1] = $temp;
+                }
+            }
+
+        }
+    }
+}
+function sortProductsQuantityLess(array &$array){
+    $temp = null;
+    for($i=0; $i<count($array); $i++) {
+        for($j=0; $j<count($array)-$i-1; $j++) {
+            if($array[$j]['price']==$array[$j+1]['price']){
+                if($array[$j]['qty']>$array[$j+1]['qty']) {
+                    $temp = $array[$j];
+                    $array[$j] = $array[$j+1];
+                    $array[$j+1] = $temp;
+                }
+            }
+
+        }
+    }
+}
+
+$products = $this->get('products');
+
+   if (count($_POST)>0) {
+        if(($_POST['sortfirst']==='price_ASC') &&( $_POST['sortsecond']==='qty_ASC')){
+            sortProductsPriceLess($products);
+            sortProductsQuantityLess($products);
+        }elseif(($_POST['sortfirst']==='price_ASC') &&( $_POST['sortsecond']==='qty_DESC')){
+            sortProductsPriceLess($products);
+            sortProductsQuantityMore($products);
+       }elseif(($_POST['sortfirst']==='price_DESC') &&( $_POST['sortsecond']==='qty_ASC')){
+            sortProductsPriceMore($products);
+            sortProductsQuantityLess($products);
+        }
+        elseif(($_POST['sortfirst']==='price_DESC') &&( $_POST['sortsecond']==='qty_DESC')){
+            sortProductsPriceMore($products);
+            sortProductsQuantityMore($products);
+        }
+   }
+
+?>
+
 <div class="product">
     <p><?= \Core\Url::getLink('/product/add', 'Додати товар'); ?></p>
 </div>
 
 <?php
-$products = $this->get('products');
 
 foreach ($products as $product)  :
     ?>
