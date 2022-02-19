@@ -68,6 +68,42 @@ class ProductController extends Controller
      */
     public function editAction(): void
     {
+//        $model = $this->getModel('Product');
+//        $this->set('saved', 0);
+//        $this->set("title", "Редагування товару");
+//        $id = filter_input(INPUT_POST, 'id');
+//        if ($id) {
+//            $values = $model->getPostValues();
+//            $this->set('saved', 1);
+//            $model->saveItem($id, $values);
+//        }
+//        $this->set('product', $model->getItem($this->getId()));
+//
+//        $this->renderLayout();
+        echo "edit";
+    }
+
+    /**
+     * Shows product add page
+     * 
+     * @return void
+     */
+    public function addAction(): void
+    {
+        $model = $this->getModel('Product');
+        $this->set("title", "Додавання товару");
+        $values = $_POST;
+        $model->addItem($values);
+//        if ($values = $model->getPostValues()) {
+//           $model->addItem($values);
+//        }
+        $this->renderLayout();
+
+    }
+
+
+    public function deleteAction(): void
+    {
         $model = $this->getModel('Product');
         $this->set('saved', 0);
         $this->set("title", "Редагування товару");
@@ -80,22 +116,10 @@ class ProductController extends Controller
         $this->set('product', $model->getItem($this->getId()));
 
         $this->renderLayout();
+        echo "delete";
     }
 
-    /**
-     * Shows product add page
-     * 
-     * @return void
-     */
-    public function addAction(): void
-    {
-        $model = $this->getModel('Product');
-        $this->set("title", "Додавання товару");
-        if ($values = $model->getPostValues()) {
-            $model->addItem($values);
-        }
-        $this->renderLayout();
-    }
+
 
     /**
      * @return array

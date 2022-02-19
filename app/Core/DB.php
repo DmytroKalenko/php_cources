@@ -55,7 +55,9 @@ class DB
 
         if ($result !== false) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo "sucsess";
         } else {
+            echo "error";
             return false;
         }
     }
