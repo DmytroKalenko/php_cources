@@ -1,10 +1,11 @@
 <?php
 $product = $this->get('product');
-
+var_dump($product);
 
 ?>
-<form class="product" method="POST" action="<?php $_SERVER['PHP_SELF']; ?>">
-    <?php $_SERVER['PHP_SELF']; ?>
+<form class="product" method="POST" action="<?php $_SERVER['PHP_SELF']?>">
+    <input type="hidden" name=id value="<?php echo $product['id'] ?>">
+
     <label for="sku">Код</label>
     <input type="text" name="sku" id="sku" value="<?php echo $product['sku'] ?>">
 
@@ -20,9 +21,8 @@ $product = $this->get('product');
     <label for="description">Опис:</label>
     <textarea name="description" id="description"><?php echo $product['description'] ?></textarea>
 
-
-    <?= \Core\Url::getLink('/product/edit', 'Записати', array('id' => $product['id'])); ?>
-
+    <input type="submit" value="Записати">
 </form>
+
 
 

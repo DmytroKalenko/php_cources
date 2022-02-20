@@ -44,7 +44,7 @@ class ProductController extends Controller
 
     /**
      * Single product view action
-     * 
+     *
      * @return void
      */
     public function viewAction(): void
@@ -71,19 +71,21 @@ class ProductController extends Controller
         $model = $this->getModel('Product');
         $this->set('saved', 0);
         $this->set("title", "Редагування товару");
-
-        $id = filter_input(INPUT_GET, 'id');
+        $id = filter_input(INPUT_POST, 'id');
         var_dump($id);
-
-        if($id){
+        var_dump($model->getPostValues());
+        if ($id) {
             $values = $model->getPostValues();
             $this->set('saved', 1);
-            $model->saveItem($values,$id);
+            $model->saveItem($values, $id);
         }
 
         $this->set('product', $model->getItem($this->getId()));
+
         $this->renderLayout();
     }
+
+
 
     /**
      * Shows product add page
@@ -151,7 +153,7 @@ class ProductController extends Controller
           {
           $sort = "name";
           }
-         * 
+         *
          */
         $sort = filter_input(INPUT_GET, 'sort');
         if (!isset($sort)) {
@@ -163,7 +165,7 @@ class ProductController extends Controller
           } else {
           $order = "DESC";
           }
-         * 
+         *
          */
         if ((int) filter_input(INPUT_GET, 'order') === 1) {
             $order = "DESC";
