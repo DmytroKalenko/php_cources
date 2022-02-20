@@ -68,19 +68,21 @@ class ProductController extends Controller
      */
     public function editAction(): void
     {
-//        $model = $this->getModel('Product');
-//        $this->set('saved', 0);
-//        $this->set("title", "Редагування товару");
-//        $id = filter_input(INPUT_POST, 'id');
-//        if ($id) {
-//            $values = $model->getPostValues();
-//            $this->set('saved', 1);
-//            $model->saveItem($id, $values);
-//        }
-//        $this->set('product', $model->getItem($this->getId()));
-//
-//        $this->renderLayout();
-        echo "edit";
+        $model = $this->getModel('Product');
+        $this->set('saved', 0);
+        $this->set("title", "Редагування товару");
+
+        $id = filter_input(INPUT_GET, 'id');
+        var_dump($id);
+
+        if($id){
+            $values = $model->getPostValues();
+            $this->set('saved', 1);
+            $model->saveItem($values,$id);
+        }
+
+        $this->set('product', $model->getItem($this->getId()));
+        $this->renderLayout();
     }
 
     /**
@@ -92,34 +94,28 @@ class ProductController extends Controller
     {
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
-        $values = $_POST;
-        $model->addItem($values);
-//        if ($values = $model->getPostValues()) {
-//           $model->addItem($values);
-//        }
+        $values = $model->getPostValues();
+
+        if (count($values)>0) {
+         $model->addItem($values);
+        }
         $this->renderLayout();
 
     }
 
-
+    /**
+     * Delete product from page
+     *
+     * @return void
+     */
     public function deleteAction(): void
     {
         $model = $this->getModel('Product');
-        $this->set('saved', 0);
-        $this->set("title", "Редагування товару");
-        $id = filter_input(INPUT_POST, 'id');
+        $id = filter_input(INPUT_GET, 'id');
         if ($id) {
-            $values = $model->getPostValues();
-            $this->set('saved', 1);
-            $model->saveItem($id, $values);
+            $model->delItem($id);
         }
-        $this->set('product', $model->getItem($this->getId()));
-
-        $this->renderLayout();
-        echo "delete";
     }
-
-
 
     /**
      * @return array
@@ -193,5 +189,7 @@ class ProductController extends Controller
          */
         return filter_input(INPUT_GET, 'id');
     }
+
+
 
 }

@@ -62,13 +62,57 @@ class DB
         }
     }
 
+
+    /**
+     * Add provided entity
+     *
+     * @param DbModelInterface $model
+     * @return bool
+     */
+    public function addEntity(DbModelInterface $model, $product )
+    {
+        /*
+         TODO
+         validation;
+        */
+        $sku= '';
+        $qty = 0;
+        $description = '';
+        if (array_key_exists('sku', $product)) {
+            $sku =$product['sku'];
+        }
+        if (array_key_exists('qty', $product)) {
+            $sku =$product['qty'];
+        }
+        if (array_key_exists('description', $product)) {
+            $sku =$product['description'];
+        }
+
+
+        $dbh = $this->getConnection();
+        $sql = sprintf("INSERT INTO %s (sku,name,price,qty,description) VALUE ('%s','%s','%s','%s','%s')",
+            $model->getTableName(),
+            $sku,
+            $product['name'],
+            $product['price'],
+            $qty,
+            $description
+        );
+       $statement = $dbh->prepare($sql);
+        return $statement->execute([]);
+
+
+    }
+
+
+
     /**
      * Delete provided entity
      * 
      * @param DbModelInterface $model
      * @return bool
      */
-    public function deleteEntity(DbModelInterface $model): bool
+    public function deleteEntity(DbModelInterface $model, $id)
     {
         $dbh = $this->getConnection();
         $sql = sprintf("DELETE FROM %s WHERE %s = ?",
@@ -77,7 +121,65 @@ class DB
         );
         $statement = $dbh->prepare($sql);
 
-        return $statement->execute($model->getId());
+      return $statement->execute([$id]);
+
+
+    }
+
+    /**
+     * Update provided entity
+     *
+     * @param DbModelInterface $model
+     * @return bool
+     */
+    public function updateEntity(DbModelInterface $model,$product, $id)
+    {
+
+        var_dump('ssssss');
+//        $sku= '';
+//        $name = '';
+//        $qty = 0;
+//        $price = 0;
+//        $description = '';
+//        if (array_key_exists('sku', $product)) {
+//            $sku =$product['sku'];
+//        }
+//        if (array_key_exists('name', $product)) {
+//            $name =$product['name'];
+//        }
+//        if (array_key_exists('price', $product)) {
+//            $price =$product['price'];
+//        }
+//        if (array_key_exists('qty', $product)) {
+//            $sku =$product['qty'];
+//        }
+//        if (array_key_exists('description', $product)) {
+//            $sku =$product['description'];
+//        }
+
+
+//        $dbh = $this->getConnection();
+//        $sql = sprintf("UPDATE %s
+//                                SET sku = '%s', name = '%s', price = '%s', qty = '%s', description = '%s'
+//                                WHERE id = {$id}",
+//            $model->getTableName(),
+//            $product['sku'],
+//            $product['name'],
+//            $product['price'],
+//            $product['qty'],
+//            $product['description']
+
+//            $sku,
+//            $name,
+//            $price,
+//            $qty,
+//            $description
+//        );
+//        $statement = $dbh->prepare($sql);
+//
+//        return $statement->execute([]);
+
+
     }
 
 }

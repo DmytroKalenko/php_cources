@@ -11,9 +11,11 @@ use Core\DB;
  */
 class Product extends Model
 {
+
     /**
      * Product constructor.
      */
+
     function __construct()
     {
         $this->tableName = 'products';
@@ -23,12 +25,26 @@ class Product extends Model
     public function addItem($values){
         if(count($values)>0){
             $db = new DB();
-            $db->getConnection();
-            $sql = "INSERT INTO products (sku,name,price,qty,description)
-        VALUES ('{$values['sku']}','{$values['productnames']}','{$values['productPrice']}','{$values['productQuantity']}','{$values['productDescription']}')";
-            $db->getConnection()->exec($sql);
+            $db->addEntity($this,$values);
             header("Location: http://localhost/store/product/list");
             exit();
         }
     }
-}
+
+
+    public function delItem($id){
+        $db = new DB();
+        $db->deleteEntity($this,$id);
+        header("Location: http://localhost/store/product/list");
+    }
+
+    public function saveItem($values,$id){
+        $db = new DB();
+        $db->updateEntity($this,$values,$id);
+    }
+
+
+
+};
+
+
