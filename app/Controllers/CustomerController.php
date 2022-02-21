@@ -16,7 +16,7 @@ class CustomerController extends Controller
 
         $customers = $this->getModel('Customer')
            ->initCollection()
-            ->sort($this->getSortParams())
+//            ->sort($this->getSortParams())
            ->getCollection()
           ->select();
         $this->set('customers', $customers);
