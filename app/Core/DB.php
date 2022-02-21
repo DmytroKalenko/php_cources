@@ -135,51 +135,42 @@ class DB
     public function updateEntity(DbModelInterface $model,$product, $id)
     {
 
-        var_dump('ssssss');
-//        $sku= '';
-//        $name = '';
-//        $qty = 0;
-//        $price = 0;
-//        $description = '';
-//        if (array_key_exists('sku', $product)) {
-//            $sku =$product['sku'];
-//        }
-//        if (array_key_exists('name', $product)) {
-//            $name =$product['name'];
-//        }
-//        if (array_key_exists('price', $product)) {
-//            $price =$product['price'];
-//        }
-//        if (array_key_exists('qty', $product)) {
-//            $sku =$product['qty'];
-//        }
-//        if (array_key_exists('description', $product)) {
-//            $sku =$product['description'];
-//        }
+        $sku= '';
+        $name = '';
+        $qty = 0;
+        $price = 0;
+        $description = '';
+        if (array_key_exists('sku', $product)) {
+            $sku =$product['sku'];
+        }
+        if (array_key_exists('name', $product)) {
+            $name =$product['name'];
+        }
+        if (array_key_exists('price', $product)) {
+            $price =$product['price'];
+        }
+        if (array_key_exists('qty', $product)) {
+            $qty =$product['qty'];
+        }
+        if (array_key_exists('description', $product)) {
+            $description =$product['description'];
+        }
 
 
-//        $dbh = $this->getConnection();
-//        $sql = sprintf("UPDATE %s
-//                                SET sku = '%s', name = '%s', price = '%s', qty = '%s', description = '%s'
-//                                WHERE id = {$id}",
-//            $model->getTableName(),
-//            $product['sku'],
-//            $product['name'],
-//            $product['price'],
-//            $product['qty'],
-//            $product['description']
+        $dbh = $this->getConnection();
+        $sql = sprintf("UPDATE %s
+                                SET sku = '%s', name = '%s', price = '%s', qty = '%s', description = '%s'
+                                WHERE id = ?",
+            $model->getTableName(),
+            $sku,
+            $name,
+            $price,
+            $qty,
+            $description
+        );
+        $statement = $dbh->prepare($sql);
 
-//            $sku,
-//            $name,
-//            $price,
-//            $qty,
-//            $description
-//        );
-//        $statement = $dbh->prepare($sql);
-//
-//        return $statement->execute([]);
-
-
+        return $statement->execute([$id]);
     }
 
 }

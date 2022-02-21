@@ -39,12 +39,9 @@ class Product extends Model
     }
 
     public function saveItem($values,$id){
-
         $db = new DB();
         $db->updateEntity($this,$values,$id);
     }
-
-
 
 };
 

@@ -5,6 +5,7 @@ namespace Controllers;
 use Core\Controller;
 use Core\View;
 
+
 class CustomerController extends Controller
 {
 
@@ -22,6 +23,7 @@ class CustomerController extends Controller
 
         $this->renderLayout();
     }
+
     public function viewAction(): void
     {
         $this->set('title', 'Карточка клієнта');
@@ -34,6 +36,9 @@ class CustomerController extends Controller
         $this->set('customers', $customers);
 
         $this->renderLayout();
+
+
+
     }
 
     public function editAction(): void

@@ -71,11 +71,25 @@ abstract class Model implements DbModelInterface
      */
     public function sort($params)
     {
-        /*
-          TODO
-          return $this;
-         */
+        $products = $this->collection;
+        if(($params['price']==="ASC") && ($params['qty']==="ASC")){
+            $this -> sortProductsPriceLess($products);
+            $this -> sortProductsQuantityLess($products);
+        }elseif(($params['price']==="ASC") && ($params['qty']==="DESC")){
+            $this -> sortProductsPriceLess($products);
+            $this -> sortProductsQuantityMore($products);
+       }elseif(($params['price']==='DESC') && ($params['qty']==="ASC")){
+            $this -> sortProductsPriceMore($products);
+            $this -> sortProductsQuantityLess($products);
+        }
+        elseif(($params['price']==='DESC') && ($params['qty']==="DESC")){
+           $this -> sortProductsPriceMore($products);
+           $this -> sortProductsQuantityMore($products);
+        }
+        $this->collection = $products;
+
         return $this;
+
     }
 
     /**
@@ -85,7 +99,9 @@ abstract class Model implements DbModelInterface
     {
         /*
           TODO
+
          */
+
         return $this;
     }
 
@@ -167,5 +183,65 @@ abstract class Model implements DbModelInterface
     {
         return 1;
     }
+
+    private function sortProductsPriceMore(array &$array){
+        $temp = null;
+        $n = count($array);
+        for($i=0; $i<$n; $i++) {
+            for($j=0; $j<$n-$i-1; $j++) {
+                if($array[$j]['price']<$array[$j+1]['price']) {
+                    $temp = $array[$j];
+                    $array[$j] = $array[$j+1];
+                    $array[$j+1] = $temp;
+                }
+            }
+        }
+    }
+    private function sortProductsPriceLess(array &$array){
+        $temp = null;
+        for($i=0; $i<count($array); $i++) {
+            for($j=0; $j<count($array)-$i-1; $j++) {
+                if($array[$j]['price']>$array[$j+1]['price']) {
+                    $temp = $array[$j];
+                    $array[$j] = $array[$j+1];
+                    $array[$j+1] = $temp;
+                }
+            }
+        }
+
+    }
+
+    private function sortProductsQuantityMore(array &$array){
+        $temp = null;
+        for($i=0; $i<count($array); $i++) {
+            for($j=0; $j<count($array)-$i-1; $j++) {
+                if($array[$j]['price']==$array[$j+1]['price']){
+                    if($array[$j]['qty']<$array[$j+1]['qty']) {
+                        $temp = $array[$j];
+                        $array[$j] = $array[$j+1];
+                        $array[$j+1] = $temp;
+                    }
+                }
+
+            }
+        }
+    }
+    private function sortProductsQuantityLess(array &$array){
+        $temp = null;
+        for($i=0; $i<count($array); $i++) {
+            for($j=0; $j<count($array)-$i-1; $j++) {
+                if($array[$j]['price']==$array[$j+1]['price']){
+                    if($array[$j]['qty']>$array[$j+1]['qty']) {
+                        $temp = $array[$j];
+                        $array[$j] = $array[$j+1];
+                        $array[$j+1] = $temp;
+                    }
+                }
+
+            }
+        }
+    }
+
+
 
 }

@@ -74,7 +74,7 @@ abstract class Controller
     {
         return $this->getModel('menu')
                         ->initCollection()
-                        ->sort(['sort_order' => 'ASC'])
+//                        ->sort(['sort_order' => 'ASC'])
                         ->getCollection()
                         ->select();
     }

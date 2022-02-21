@@ -1,6 +1,6 @@
 <?php
 $product = $this->get('product');
-var_dump($product);
+
 
 ?>
 <form class="product" method="POST" action="<?php $_SERVER['PHP_SELF']?>">

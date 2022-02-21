@@ -30,16 +30,26 @@ class ProductController extends Controller
      */
     public function listAction(): void
     {
+//        var_dump(get_class_methods($this));
+//        var_dump($this);
         $this->set('title', "Товари");
 
         $products = $this->getModel('Product')
-                ->initCollection()
-                ->sort($this->getSortParams())
-                ->getCollection()
-                ->select();
+            ->initCollection()
+
+            ->getCollection()
+            ->sort($this->getSortParams())
+            ->select();
+
+
+
         $this->set('products', $products);
 
+
+
         $this->renderLayout();
+
+
     }
 
     /**
@@ -59,6 +69,8 @@ class ProductController extends Controller
         $this->set('products', $product);
 
         $this->renderLayout();
+            var_dump("viewAction");
+
     }
 
     /**
@@ -72,14 +84,11 @@ class ProductController extends Controller
         $this->set('saved', 0);
         $this->set("title", "Редагування товару");
         $id = filter_input(INPUT_POST, 'id');
-        var_dump($id);
-        var_dump($model->getPostValues());
         if ($id) {
             $values = $model->getPostValues();
             $this->set('saved', 1);
             $model->saveItem($values, $id);
         }
-
         $this->set('product', $model->getItem($this->getId()));
 
         $this->renderLayout();
