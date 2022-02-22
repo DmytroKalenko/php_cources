@@ -30,23 +30,13 @@ class ProductController extends Controller
      */
     public function listAction(): void
     {
-//        var_dump(get_class_methods($this));
-//        var_dump($this);
         $this->set('title', "Товари");
-
         $products = $this->getModel('Product')
             ->initCollection()
-
             ->getCollection()
             ->sort($this->getSortParams())
             ->select();
-
-
-
         $this->set('products', $products);
-
-
-
         $this->renderLayout();
 
 
@@ -69,8 +59,6 @@ class ProductController extends Controller
         $this->set('products', $product);
 
         $this->renderLayout();
-            var_dump("viewAction");
-
     }
 
     /**
@@ -87,7 +75,8 @@ class ProductController extends Controller
         if ($id) {
             $values = $model->getPostValues();
             $this->set('saved', 1);
-            $model->saveItem($values, $id);
+            $model->setId((int)$id);
+            $model->saveItem($values);
         }
         $this->set('product', $model->getItem($this->getId()));
 
@@ -108,7 +97,7 @@ class ProductController extends Controller
         $values = $model->getPostValues();
 
         if (count($values)>0) {
-         $model->addItem($values);
+            $model->addItem($values);
         }
         $this->renderLayout();
 
@@ -123,7 +112,9 @@ class ProductController extends Controller
     {
         $model = $this->getModel('Product');
         $id = filter_input(INPUT_GET, 'id');
+
         if ($id) {
+            $model->setId((int)$id);
             $model->delItem($id);
         }
     }

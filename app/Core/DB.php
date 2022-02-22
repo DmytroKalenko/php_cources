@@ -112,7 +112,7 @@ class DB
      * @param DbModelInterface $model
      * @return bool
      */
-    public function deleteEntity(DbModelInterface $model, $id)
+    public function deleteEntity(DbModelInterface $model)
     {
         $dbh = $this->getConnection();
         $sql = sprintf("DELETE FROM %s WHERE %s = ?",
@@ -120,10 +120,7 @@ class DB
                 $model->getPrimaryKeyName()
         );
         $statement = $dbh->prepare($sql);
-
-      return $statement->execute([$id]);
-
-
+         return $statement->execute([$model->getId()]);
     }
 
     /**
@@ -132,7 +129,7 @@ class DB
      * @param DbModelInterface $model
      * @return bool
      */
-    public function updateEntity(DbModelInterface $model,$product, $id)
+    public function updateEntity(DbModelInterface $model,$product)
     {
 
         $sku= '';
@@ -170,7 +167,7 @@ class DB
         );
         $statement = $dbh->prepare($sql);
 
-        return $statement->execute([$id]);
+        return $statement->execute([$model->getId()]);
     }
 
 }

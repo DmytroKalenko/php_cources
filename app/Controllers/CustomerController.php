@@ -81,6 +81,7 @@ class CustomerController extends Controller
 
     public function getId()
     {
+
         return filter_input(INPUT_GET, 'id');
     }
 }

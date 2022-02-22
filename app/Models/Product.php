@@ -32,15 +32,15 @@ class Product extends Model
     }
 
 
-    public function delItem($id){
+    public function delItem(){
         $db = new DB();
-        $db->deleteEntity($this,$id);
+        $db->deleteEntity($this);
         header("Location: http://localhost/store/product/list");
     }
 
-    public function saveItem($values,$id){
+    public function saveItem($values){
         $db = new DB();
-        $db->updateEntity($this,$values,$id);
+        $db->updateEntity($this,$values);
     }
 
 };

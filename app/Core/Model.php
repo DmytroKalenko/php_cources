@@ -9,6 +9,10 @@ namespace Core;
  */
 abstract class Model implements DbModelInterface
 {
+    /**
+     * @var int
+     */
+    protected int $productId;
 
     /**
      * @var string
@@ -179,9 +183,13 @@ abstract class Model implements DbModelInterface
         return $this->idColumn;
     }
 
-    public function getId(): ?int
+    public function setId(int $id){
+        $this->productId = $id;
+    }
+
+    public function getId():int
     {
-        return 1;
+        return $this->productId;
     }
 
     private function sortProductsPriceMore(array &$array){
