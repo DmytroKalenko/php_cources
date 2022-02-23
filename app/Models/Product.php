@@ -11,6 +11,7 @@ use Core\DB;
  */
 class Product extends Model
 {
+    public int $idAddedProduct;
 
     /**
      * Product constructor.
@@ -26,8 +27,7 @@ class Product extends Model
         if(count($values)>0){
             $db = new DB();
             $db->addEntity($this,$values);
-            header("Location: http://localhost/store/product/list");
-            exit();
+           $this->idAddedProduct = $db->getIdProduct($this,$values);
         }
     }
 
@@ -35,7 +35,6 @@ class Product extends Model
     public function delItem(){
         $db = new DB();
         $db->deleteEntity($this);
-        header("Location: http://localhost/store/product/list");
     }
 
     public function saveItem($values){

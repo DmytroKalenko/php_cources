@@ -170,4 +170,14 @@ class DB
         return $statement->execute([$model->getId()]);
     }
 
+    public function getIdProduct(DbModelInterface $model,$values){
+       $dbh = $this->getConnection();
+        $sql = sprintf("SELECT * FROM %s where name = '{$values['name']}'",
+            $model->getTableName(),
+        );
+        $statement = $dbh->query($sql);
+        $result = $statement->fetch();
+        return $result['id'];
+    }
+
 }

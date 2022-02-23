@@ -77,6 +77,7 @@ class ProductController extends Controller
             $this->set('saved', 1);
             $model->setId((int)$id);
             $model->saveItem($values);
+
         }
         $this->set('product', $model->getItem($this->getId()));
 
@@ -92,12 +93,14 @@ class ProductController extends Controller
      */
     public function addAction(): void
     {
+        $id = filter_input(INPUT_GET, 'id');
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
         $values = $model->getPostValues();
 
         if (count($values)>0) {
             $model->addItem($values);
+            $this->redirect("/product/edit?id=".$model->idAddedProduct);
         }
         $this->renderLayout();
 
@@ -116,6 +119,7 @@ class ProductController extends Controller
         if ($id) {
             $model->setId((int)$id);
             $model->delItem($id);
+            $this->redirect('/product/list');
         }
     }
 
