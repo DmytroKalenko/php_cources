@@ -71,21 +71,25 @@ class DB
      */
     public function addEntity(DbModelInterface $model, $product )
     {
-        /*
-         TODO
-         validation;
-        */
         $sku= '';
+        $name = '';
         $qty = 0;
+        $price = 0;
         $description = '';
         if (array_key_exists('sku', $product)) {
             $sku =$product['sku'];
         }
+        if (array_key_exists('name', $product)) {
+            $name =$product['name'];
+        }
+        if (array_key_exists('price', $product)) {
+            $price =$product['price'];
+        }
         if (array_key_exists('qty', $product)) {
-            $sku =$product['qty'];
+            $qty =$product['qty'];
         }
         if (array_key_exists('description', $product)) {
-            $sku =$product['description'];
+            $description =$product['description'];
         }
 
 
@@ -93,8 +97,8 @@ class DB
         $sql = sprintf("INSERT INTO %s (sku,name,price,qty,description) VALUE ('%s','%s','%s','%s','%s')",
             $model->getTableName(),
             $sku,
-            $product['name'],
-            $product['price'],
+            $name,
+            $price,
             $qty,
             $description
         );

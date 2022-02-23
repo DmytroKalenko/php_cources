@@ -7,10 +7,10 @@
     <input type="text" name="sku" id="sku">
 
     <label for="productnames">Назва</label>
-    <input type="text" name="name" id="productnames" required>
+    <input type="text" name="name" id="productnames">
 
     <label for="productPrice">Ціна</label>
-    <input type="text" name="price" id="productPrice" required>
+    <input type="text" name="price" id="productPrice">
 
     <label for="productQuantity">Кількість</label>
     <input type="text" name="qty" id="productQuantity">

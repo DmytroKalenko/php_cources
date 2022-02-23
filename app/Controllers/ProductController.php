@@ -93,12 +93,11 @@ class ProductController extends Controller
      */
     public function addAction(): void
     {
-        $id = filter_input(INPUT_GET, 'id');
         $model = $this->getModel('Product');
         $this->set("title", "Додавання товару");
         $values = $model->getPostValues();
 
-        if (count($values)>0) {
+        if ((count($values)>0)&&($model->addItem($values))) {
             $model->addItem($values);
             $this->redirect("/product/edit?id=".$model->idAddedProduct);
         }
